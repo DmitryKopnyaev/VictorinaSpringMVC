@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="info">
+    <div class="container">
+        <!--/*@thymesVar id="test" type="com.dimentor.victorina.model.Test"*/-->
+        <p th:if="${!test.allTaskChecked()}">Вы решили не все задачи</p>
+        <form method="post" th:if="${test.allTaskChecked() && !test.isFinished()}" th:action="@{/test/finish(testId=${test.getId()})}">
+            <button class="btn bg-success" type="submit">FINISH</button>
+        </form>
+        <!--/*@thymesVar id="finished" type="com."*/-->
+        <div th:if="${test.isFinished()}">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Question</th>
+                        <th scope="col">Your answer</th>
+                        <th scope="col">Correct answer</th>
+                        <th scope="col">Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task, index : ${test.getTasks()}">
+                    <td th:utext="${index.count}"></td>
+                    <td th:utext="${task.getQuestion()}">Question</td>
+                    <td th:if="${task.getResults().size()>0}"
+                        th:utext="${task.getResults().get(0).getAnswer()}">Your answer</td>
+                    <td th:utext="${task.getCorrectAnswer()}">Correct answer</td>
+                    <td th:if="${task.getResults().size()>0}"
+                        th:utext="${task.getResults().get(0).getAnswer().equals(task.getCorrectAnswer()) ? '+' : '-'}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <a th:href="@{/test/index}">Back to first page</a>
+        </div>
+<!--        Тут получаем finished и если true - прячем кнопку FINISH, а таблицу показываем-->
+    </div>
+</div>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container">
+    <form th:action="@{/main/info}">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4 text-center">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="form-group">
+                    <label for="num-of-question">Количество вопросов</label>
+                    <input id="num-of-question" class="form-control  text-center" th:name="amount" type="number" max="50"/>
+                </div>
+                <br>
+                <div>
+                    <label for="label-category">Выберите категорию</label>
+                    <select id="label-category" class="form-control text-center" th:name="category">
+<!--                        <option selected>Select category</option>-->
+                        <option selected th:value="23">History</option>
+                        <option th:value="24">Politics</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <label for="label-difficultly">Выберите сложность</label>
+                    <select id="label-difficultly" class="form-control text-center" th:name="difficulty">
+<!--                        <option selected>Select difficultly</option>-->
+                        <option th:value="hard">Hard</option>
+                        <option th:value="medium">Medium</option>
+                        <option selected th:value="easy">Easy</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <label for="label-type">Выберите тип</label>
+                    <select id="label-type" class="form-control text-center" th:name="type">
+<!--                        <option selected>Select type</option>-->
+                        <option th:value="any">any</option>
+                        <option selected th:value="multiple">multiple</option>
+                        <option th:value="boolean">boolean</option>
+                    </select>
+                </div>
+                <br>
+                <button class="btn btn-primary" th:name="variant" th:value="start" type="submit">Start</button>
+                <button class="btn btn-primary" th:name="variant" th:value="save" type="submit">Save</button>
+            </div>
+        </div>
+        <div class="col-lg-4"></div>
+    </form>
+<!--    <div th:replace="fragments/footer :: footer"></div>-->
+</div>
+</body>
+</html>

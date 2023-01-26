@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div th:replace="fragments/header::header"></div>
+<div class="container row">
+    <div class="col-lg-1">
+        <div class="list-group" th:each="task, index : ${test.getTasks()}">
+            <a class="list-group-item" th:text="${index.count}"
+               th:href="@{/test/start(test=${test.getId()} ,task=${task.getId()})}"></a>
+<!--            th:style="${task.getResults().get(0)}==null ? 'background: red': 'background: white'"-->
+        </div>
+    </div>
+    <div class="col-lg-11">
+        <div class="jumbotron jumbotron-fluid">
+            <div th:replace="/operations/testResult :: info"></div>
+        </div>
+        <div class="col-lg-12" th:if="${task != null}">
+            <div class="jumbotron jumbotron-fluid">
+                <p class="text-center" th:text="${task.getQuestion()}"></p>
+                <form method="post" th:action="@{/test/answer(task=${task.getId()})}">
+                    <div class="list-group" th:each="ans, index : ${task.getMixAnswers()}">
+                        <!--                    th:checked="${!task.getResults().isEmpty() && task.getResults().get(0).getAnswer().equals(ans.toString())}"-->
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="answer" id="radio1"
+                                   th:checked="${!task.getResults().isEmpty() && task.getResults().get(0).getAnswer().equals(ans.toString())}"
+                                   th:value="${ans}">
+                            <label class="form-check-label" for="radio1" th:text="${ans}"></label>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-default" type="submit">SELECT IT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

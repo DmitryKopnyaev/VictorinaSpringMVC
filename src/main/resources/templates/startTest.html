@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div th:replace="fragments/header::header"></div>
+<div class="container row">
+    <div class="col-lg-1">
+        <div class="list-group" th:each="task, index : ${test.getTasks()}">
+            <a class="list-group-item" th:text="${index.count}" th:href="@{/main/task(id=${task.getId()})}"></a>
+        </div>
+    </div>
+
+    <div class="col-lg-11">
+        <div class="jumbotron jumbotron-fluid">
+            <div th:replace="/operations/testResult :: info"></div>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
